@@ -7,6 +7,7 @@
 #include "Gizmos.h"
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include "ObjectOriented.h"
 
 using glm::vec3;
 using glm::vec4;
@@ -43,12 +44,15 @@ int main()
 
 	Gizmos::create();
 	mat4 view = glm::lookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
-	mat4 projection = glm::perspective(glm::pi<float>() * 0.25f, 16 / 9.f, 0.1f, 1000.f);
+	mat4 projection = glm::perspective(glm::pi<float>() * 0.25f, 16 / 9.f, 0.1f, 1000.f);
+
 	// After checking, the rest of the code goes here.
 
 	glClearColor(0.25f, 0.25f, 0.25f, 1);
 	glEnable(GL_DEPTH_TEST); // enables the depth buffer
 
+
+	static ObjectOriented Hierarchy[];
 	//-----------------------------------------------------------------------------------------------------
 	while (glfwWindowShouldClose(window) == false && glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS)
 	{
