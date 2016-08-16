@@ -1,3 +1,5 @@
 ﻿  Main.cpp
-c:\users\austin.morrell.aie\desktop\opengltour2\opengltour2\dep\glm\glm\gtx\scalar_multiplication.hpp(85): error C2719: 'rh': formal parameter with requested alignment of 16 won't be aligned
-c:\users\austin.morrell.aie\desktop\opengltour2\opengltour2\dep\glm\glm\gtx\scalar_multiplication.hpp(85): error C2719: 'lh': formal parameter with requested alignment of 16 won't be aligned
+  Gizmos.cpp
+  Generating Code...
+  OpenGLTour2.vcxproj -> C:\Users\Austin.Morrell.AIE\Desktop\OpenGLTour2\OpenGLTour2\Debug\OpenGLTour2.exe
+  OpenGLTour2.vcxproj -> C:\Users\Austin.Morrell.AIE\Desktop\OpenGLTour2\OpenGLTour2\Debug\OpenGLTour2.pdb (Partial PDB)
