@@ -14,13 +14,14 @@ using glm::vec4;
 using glm::mat4;
 using namespace std;
 
-vec3 Rotate()
+vec4 RotateAround(vec3 a, vec3 b, vec3 c)
 {
-	vec3 answer = vec3(0, 0, 0);
-
-
-
-	return answer;
+	vec3 finalPos = a - b;
+	finalPos = c * finalPos;
+	finalPos += b;
+	vec4 result = vec4(finalPos.x, finalPos.y, finalPos.z, 0);
+	/*cout << result.x << endl << result.y << endl << result.z << endl;*/
+	return result;
 }
 
 int main()
@@ -61,20 +62,30 @@ int main()
 	glEnable(GL_DEPTH_TEST); // enables the depth buffer
 
 	//-----------------------------------------------------------------------------------------------------
-	vec3 sun = vec3(0, 3, 0);
-	vec3 merc = vec3(0, 3, 3);
-	vec3 ven = vec3(0, 3, 6);
-	vec3 earth = vec3(0, 3, 9);
-	vec3 mars = vec3(0, 3, 12);
-	vec3 jupt = vec3(0, 3, 15);
-	vec3 sat = vec3(0, 3, 18);
-	vec3 uran = vec3(0, 3, 21);
-	vec3 nept = vec3(0, 3, 24);
-	vec3 plut = vec3(0, 3, 27);
+	mat4 sun;
+	mat4 ven;
+	mat4 moon;
+	mat4 earth;
+
+	mat4 rotation;
+	rotation[0] = { 1,0,0,0 };
+	rotation[1] = { 0,1,0,0 };
+	rotation[2] = { 0,0,1,0 };
+	rotation[3] = { 0,0,0,1 };
+
+	const mat4* yaboi = &rotation;
+	//-----------------------------------------------------------------------------------------------------
+
+	sun[0] = {0,4,0,0};
+	ven[0] = { 5,4,0,0 };
+	moon[0] = { 10,4,0,0 };
+	earth[0] = { 15,4,0,0 };
+
+	//-----------------------------------------------------------------------------------------------------
 	float speed = 1.0f;
 	float theta = 0;
 	float PI = 3.14f;
-	/*static ObjectOriented Hierarchy[];*/
+	float angle = 0.0f;
 	//-----------------------------------------------------------------------------------------------------
 	while (glfwWindowShouldClose(window) == false && glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS)
 	{
@@ -86,56 +97,27 @@ int main()
 		vec4 white(1);
 		vec4 black(0, 0, 0, 1);
 
-		/*for (int i = 0; i < 21; i++)
+		for (int i = 0; i < 21; i++)
 		{
 			Gizmos::addLine(vec3(-10 + i, 0, 10), vec3(-10 + i, 0, -10), i == 10 ? white : black);
 			Gizmos::addLine(vec3(10, 0, -10 + i), vec3(-10, 0, -10 + i), i == 10 ? white : black);
-		}*/
+		}
 
 		// The Sun
-		Gizmos::addSphere(sun, 3, 50, 50, vec4(1, 1, 0, 1), nullptr, 0.f, 360, -90, 90);
-		// The Mercury
-		Gizmos::addSphere(merc, 0.5f, 50, 50, vec4(.5f, .5f, 1, 1), nullptr, 0.f, 360, -90, 90);
+		Gizmos::addSphere(vec3(sun[0]), 3, 20, 20, vec4(1, 1, 0, 1), nullptr, 0.f, 360, -90, 90);
 		// The Venus
-		Gizmos::addSphere(ven, .7f, 50, 50, vec4(1, .498f, .313f, 1), nullptr, 0.f, 360, -90, 90);
+		Gizmos::addSphere(vec3(ven[0]), .7f, 20, 20, vec4(1, .498f, .313f, 1), nullptr, 0.f, 360, -90, 90);
 		// The Earth and Moon
-		Gizmos::addSphere(earth, 0.7f, 50, 50, vec4(0, 0, 1, 1), nullptr, 0.f, 360, -90, 90);
-		/*Gizmos::addSphere(vec3(0, 3, 0), 0.007f, 50, 50, vec4(1, 1, 1, 1), nullptr, 0.f, 360, -90, 90);*/
-		// The Mars
-		Gizmos::addSphere(mars, 0.6f, 50, 50, vec4(1, 0, 0, 1), nullptr, 0.f, 360, -90, 90);
-		// The Jupiter
-		Gizmos::addSphere(jupt, 1.0f, 50, 50, vec4(.5f, 0, 0, 1), nullptr, 0.f, 360, -90, 90);
-		// The Saturn
-		Gizmos::addSphere(sat, 1.0f, 50, 50, vec4(1, .843f, 0, 1), nullptr, 0.f, 360, -90, 90);
-		// The Uranus
-		Gizmos::addSphere(uran, 0.9f, 50, 50, vec4(0, 1, 1, 1), nullptr, 0.f, 360, -90, 90);
-		// The Neptune
-		Gizmos::addSphere(nept, 0.9f, 50, 50, vec4(0, 0, .5f, 1), nullptr, 0.f, 360, -90, 90);
-		// The Pluto
-		Gizmos::addSphere(plut, 0.05f, 50, 50, vec4(1, 1, 1, 1), nullptr, 0.f, 360, -90, 90);
+		Gizmos::addSphere(vec3(earth[0]), 0.7f, 20, 20, vec4(0, 0, 1, 1), nullptr, 0.f, 360, -90, 90);
+		Gizmos::addSphere(vec3(moon[0]), 0.5f, 20, 20, vec4(.5f, .5f, 1, 1), nullptr, 0.f, 360, -90, 90);
 	
 		Gizmos::draw(projection * view);
 
-		if (theta < (2 * PI))
-		{
-			float x = speed * cos(theta),
-				y = speed * sin(theta);
-			merc = vec3(merc.x + x, merc.y + y, merc.z);
-			ven = vec3(ven.x + x, ven.y + y, ven.z);
-			earth = vec3(earth.x + x, earth.y + y, earth.z);
-			mars = vec3(mars.x + x, mars.y + y, mars.z);
-			jupt = vec3(jupt.x + x, jupt.y + y, jupt.z);
-			sat = vec3(sat.x + x, sat.y + y, sat.z);
-			uran = vec3(uran.x + x, uran.y + y, uran.z);
-			nept = vec3(nept.x + x, nept.y + y, nept.z);
-			plut = vec3(nept.x + x, plut.y + y, plut.z);
+		angle += 0.01f;
+		mat4 Spin = rotate(angle, vec3(0, 1, 0));
+		sun = mat4(1) * Spin;
 
-			theta += 0.1;
-		}
-		else
-		{
-			theta = 0;
-		}
+		ven[0] = RotateAround(vec3(ven[0]), vec3(sun[0]), vec3(1, 0, 0));
 
 		/*if (mouse_event(mous))*/
 

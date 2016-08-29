@@ -1,4 +1,3 @@
 ﻿  Main.cpp
-c:\users\austin.morrell.aie\desktop\opengltour2\opengltour2\opengltour2\main.cpp(133): warning C4305: '+=': truncation from 'double' to 'float'
   OpenGLTour2.vcxproj -> C:\Users\Austin.Morrell.AIE\Desktop\OpenGLTour2\OpenGLTour2\Debug\OpenGLTour2.exe
   OpenGLTour2.vcxproj -> C:\Users\Austin.Morrell.AIE\Desktop\OpenGLTour2\OpenGLTour2\Debug\OpenGLTour2.pdb (Partial PDB)
