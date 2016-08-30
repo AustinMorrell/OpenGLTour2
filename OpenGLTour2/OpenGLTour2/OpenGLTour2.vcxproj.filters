@@ -24,6 +24,9 @@
     <ClCompile Include="..\src\gl_core_4_4.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Runit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Gizmos.h">
@@ -32,7 +35,7 @@
     <ClInclude Include="..\src\gl_core_4_4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectOriented.h">
+    <ClInclude Include="Runit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
